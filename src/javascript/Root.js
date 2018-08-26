@@ -11,9 +11,10 @@ export default class Root
     {
         // Options
         this.anchors = _options.anchors
+        this.radius = _options.radius
         this.tubularSegments = _options.tubularSegments
         this.radialSegments = _options.radialSegments
-        this.radius = _options.radius
+        this.tension = _options.tension
 
         // Set up
         this.container = new THREE.Object3D()
@@ -21,7 +22,7 @@ export default class Root
         // Get points
         this.curve = new THREE.CatmullRomCurve3(this.anchors, false, 'centripetal', 1)
         this.curve.curveType = 'catmullrom'
-        this.curve.tension = 0.35
+        this.curve.tension = this.tension
 
         // Create tube
         this.geometry = new THREE.TubeGeometry(this.curve, this.tubularSegments, this.radius, this.radialSegments, false)

@@ -24,7 +24,54 @@ export default class Application
         this.time = new Time()
         this.sizes = new Sizes()
 
+        this.setDebug()
         this.setEnvironment()
+
+        this.generate()
+    }
+
+    /**
+     * Set debug
+     */
+    setDebug()
+    {
+        this.debug = new dat.GUI()
+        // this.debug.width = 480
+
+        // Options
+        this.options = {}
+
+        this.options.originX = - 2
+        this.options.originY = - 1
+        this.options.originZ = 0
+        this.options.destinationX = 2
+        this.options.destinationY = 1
+        this.options.destinationZ = 0
+        this.options.steps = 6
+        this.options.torsionAngle = Math.PI * 1
+        this.options.rootsCount = 10
+        this.options.rootsRadius = 0.15
+        this.options.rootsSpaceBetween = 0.4
+        this.options.rootsTubularSegments = 50
+        this.options.rootsRadialSegments = 6
+        this.options.rootsTension = 0.4
+
+        this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
+        this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
+        this.debug.add(this.options, 'originZ').min(- 5).max(5).step(0.1).name('origin z')
+        this.debug.add(this.options, 'destinationX').min(- 5).max(5).step(0.1).name('destination x')
+        this.debug.add(this.options, 'destinationY').min(- 5).max(5).step(0.1).name('destination y')
+        this.debug.add(this.options, 'destinationZ').min(- 5).max(5).step(0.1).name('destination z')
+        this.debug.add(this.options, 'steps').min(2).max(20).step(1).name('steps')
+        this.debug.add(this.options, 'torsionAngle').min(- 10).max(10).step(0.01).name('torsion angle')
+        this.debug.add(this.options, 'rootsCount').min(1).max(100).step(1).name('roots count')
+        this.debug.add(this.options, 'rootsRadius').min(0.01).max(1).step(0.01).name('roots radius')
+        this.debug.add(this.options, 'rootsSpaceBetween').min(0.01).max(1).step(0.01).name('roots space between')
+        this.debug.add(this.options, 'rootsTubularSegments').min(2).max(200).step(1).name('roots tubular segments')
+        this.debug.add(this.options, 'rootsRadialSegments').min(2).max(20).step(1).name('roots radial segments')
+        this.debug.add(this.options, 'rootsTension').min(0).max(1).step(0.01).name('roots tension')
+
+        this.debug.add(this, 'generate').name('generate()')
     }
 
     /**
@@ -124,19 +171,33 @@ export default class Application
                 this.composer.setSize(this.sizes.viewport.width, this.sizes.viewport.height)
             }
         })
+    }
+
+    /**
+     * Generate
+     */
+    generate()
+    {
+        // Destroy previous roots
+        if(this.roots)
+        {
+            this.roots.destructor()
+            this.scene.remove(this.roots.container)
+        }
 
         // Roots
         this.roots = new Roots({
             helpers: false,
-            origin: new THREE.Vector3(- 2, - 1, 0),
-            destination: new THREE.Vector3(2, 1, 0),
-            steps: 6,
-            torsionAngle: Math.PI * 1,
-            rootsCount: 10,
-            rootsRadius: 0.05,
-            rootsSeparation: 0.4,
-            rootsTubularSegments: 50,
-            rootsRadialSegments: 6
+            origin: new THREE.Vector3(this.options.originX, this.options.originY, this.options.originZ),
+            destination: new THREE.Vector3(this.options.destinationX, this.options.destinationY, this.options.destinationZ),
+            steps: this.options.steps,
+            torsionAngle: this.options.torsionAngle,
+            rootsCount: this.options.rootsCount,
+            rootsRadius: this.options.rootsRadius,
+            rootsSpaceBetween: this.options.rootsSpaceBetween,
+            rootsTubularSegments: this.options.rootsTubularSegments,
+            rootsRadialSegments: this.options.rootsRadialSegments,
+            rootsTension: this.options.rootsTension
         })
         this.scene.add(this.roots.container)
     }
@@ -152,5 +213,7 @@ export default class Application
         this.controls.dispose()
         this.renderer.dispose()
         this.composer.dispose()
+
+        this.debug.destroy()
     }
 }

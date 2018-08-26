@@ -16,9 +16,10 @@ export default class Roots
         this.torsionAngle = _options.torsionAngle
         this.rootsCount = _options.rootsCount
         this.rootsRadius = _options.rootsRadius
-        this.rootsSeparation = _options.rootsSeparation
+        this.rootsSpaceBetween = _options.rootsSpaceBetween
         this.rootsTubularSegments = _options.rootsTubularSegments
         this.rootsRadialSegments = _options.rootsRadialSegments
+        this.rootsTension = _options.rootsTension
 
         // Set up
         this.container = new THREE.Object3D()
@@ -65,9 +66,9 @@ export default class Roots
         // Count how much circles are needed to fit all the roots
         while(count > 0)
         {
-            circleRadius += this.rootsSeparation
+            circleRadius += this.rootsSpaceBetween
             const circlePermiter = Math.PI * 2 * circleRadius
-            const availableCountInCircle = Math.floor(circlePermiter / this.rootsSeparation)
+            const availableCountInCircle = Math.floor(circlePermiter / this.rootsSpaceBetween)
             const countInCircle = Math.min(availableCountInCircle, count)
 
             count -= countInCircle
@@ -85,7 +86,7 @@ export default class Roots
         {
             const circle = {}
 
-            circle.radius = (i + 1) * this.rootsSeparation
+            circle.radius = (i + 1) * this.rootsSpaceBetween
             circle.permiter = Math.PI * 2 * circle.radius
             circle.count = i === circlesCount - 1 ? count : Math.round(circle.permiter / totalPerimeter * this.rootsCount)
             circle.points = []
@@ -192,13 +193,22 @@ export default class Roots
             const item = new Root({
                 anchors: anchors,
                 radius: this.rootsRadius,
-                rootsTubularSegments: this.rootsTubularSegments,
-                rootsRadialSegments: this.rootsRadialSegments
+                tubularSegments: this.rootsTubularSegments,
+                radialSegments: this.rootsRadialSegments,
+                tension: this.rootsTension
             })
 
             this.container.add(item.container)
 
             this.items.push(item)
         }
+    }
+
+    /**
+     * Destructor
+     */
+    destructor()
+    {
+
     }
 }

@@ -1,5 +1,14 @@
 # Roots
 
+## Todo
+- [ ] Dat GUI
+    - [ ] Update on change
+    - [ ] Every options available
+- [ ] Destroy / Recreate
+- [ ] Animation
+- [ ] Texture
+- [ ] Shapes avoidance
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
