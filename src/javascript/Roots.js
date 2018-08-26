@@ -20,6 +20,7 @@ export default class Roots
         this.rootsTubularSegments = _options.rootsTubularSegments
         this.rootsRadialSegments = _options.rootsRadialSegments
         this.rootsTension = _options.rootsTension
+        this.wireframe = _options.wireframe
 
         // Set up
         this.container = new THREE.Object3D()
@@ -195,7 +196,8 @@ export default class Roots
                 radius: this.rootsRadius,
                 tubularSegments: this.rootsTubularSegments,
                 radialSegments: this.rootsRadialSegments,
-                tension: this.rootsTension
+                tension: this.rootsTension,
+                wireframe: this.wireframe
             })
 
             this.container.add(item.container)

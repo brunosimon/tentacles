@@ -15,6 +15,7 @@ export default class Root
         this.tubularSegments = _options.tubularSegments
         this.radialSegments = _options.radialSegments
         this.tension = _options.tension
+        this.wireframe = _options.wireframe
 
         // Set up
         this.container = new THREE.Object3D()
@@ -29,6 +30,7 @@ export default class Root
         // this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
         // this.material = new THREE.MeshNormalMaterial()
         this.material = new THREE.ShaderMaterial({
+            wireframe: this.wireframe,
             uniforms:
             {
                 uRadius: { type: 'f', value: this.radius }

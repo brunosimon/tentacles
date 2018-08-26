@@ -55,6 +55,7 @@ export default class Application
         this.options.rootsTubularSegments = 50
         this.options.rootsRadialSegments = 6
         this.options.rootsTension = 0.4
+        this.options.wireframe = false
 
         this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
         this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
@@ -70,8 +71,17 @@ export default class Application
         this.debug.add(this.options, 'rootsTubularSegments').min(2).max(200).step(1).name('roots tubular segments')
         this.debug.add(this.options, 'rootsRadialSegments').min(2).max(20).step(1).name('roots radial segments')
         this.debug.add(this.options, 'rootsTension').min(0).max(1).step(0.01).name('roots tension')
+        this.debug.add(this.options, 'wireframe').name('wireframe')
 
-        this.debug.add(this, 'generate').name('generate()')
+        for(const _controller of this.debug.__controllers)
+        {
+            _controller.onFinishChange(() =>
+            {
+                this.generate()
+            })
+        }
+
+        this.debug.add(this, 'generate').name('reset()')
     }
 
     /**
@@ -197,7 +207,8 @@ export default class Application
             rootsSpaceBetween: this.options.rootsSpaceBetween,
             rootsTubularSegments: this.options.rootsTubularSegments,
             rootsRadialSegments: this.options.rootsRadialSegments,
-            rootsTension: this.options.rootsTension
+            rootsTension: this.options.rootsTension,
+            wireframe: this.options.wireframe
         })
         this.scene.add(this.roots.container)
     }

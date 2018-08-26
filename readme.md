@@ -1,9 +1,6 @@
 # Roots
 
 ## Todo
-- [ ] Dat GUI
-    - [ ] Update on change
-    - [ ] Every options available
 - [ ] Destroy / Recreate
 - [ ] Animation
 - [ ] Texture
