@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import rootFragmentShader from '../shaders/root.fragment.glsl'
+import rootVertexShader from '../shaders/root.vertex.glsl'
 
 export default class Root
 {
@@ -23,7 +25,16 @@ export default class Root
 
         // Create tube
         this.geometry = new THREE.TubeGeometry(this.curve, this.tubularSegments, this.radius, this.radialSegments, false)
-        this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
+        // this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
+        // this.material = new THREE.MeshNormalMaterial()
+        this.material = new THREE.ShaderMaterial({
+            uniforms:
+            {
+                uRadius: { type: 'f', value: this.radius }
+            },
+            vertexShader: rootVertexShader,
+            fragmentShader: rootFragmentShader
+        })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.container.add(this.mesh)
     }

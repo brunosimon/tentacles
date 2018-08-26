@@ -127,6 +127,7 @@ export default class Application
 
         // Roots
         this.roots = new Roots({
+            helpers: false,
             origin: new THREE.Vector3(- 2, - 1, 0),
             destination: new THREE.Vector3(2, 1, 0),
             steps: 6,

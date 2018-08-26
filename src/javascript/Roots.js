@@ -9,6 +9,7 @@ export default class Roots
     constructor(_options)
     {
         // Options
+        this.helpers = _options.helpers
         this.origin = _options.origin
         this.destination = _options.destination
         this.steps = _options.steps
@@ -27,15 +28,18 @@ export default class Roots
 
         this.direction = this.way.clone().normalize()
 
-        // origin helper
-        this.originHelper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.04, 6, 6), new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true }))
-        this.originHelper.position.copy(this.origin)
-        this.container.add(this.originHelper)
+        if(this.helpers)
+        {
+            // Origin helper
+            this.originHelper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.04, 6, 6), new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true }))
+            this.originHelper.position.copy(this.origin)
+            this.container.add(this.originHelper)
 
-        // Destination helper
-        this.destinationHelper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.04, 6, 6), new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true }))
-        this.destinationHelper.position.copy(this.destination)
-        this.container.add(this.destinationHelper)
+            // Destination helper
+            this.destinationHelper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.04, 6, 6), new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true }))
+            this.destinationHelper.position.copy(this.destination)
+            this.container.add(this.destinationHelper)
+        }
 
         this.setItems()
     }
@@ -117,9 +121,12 @@ export default class Roots
             steps.push(step)
 
             // Helper
-            const helper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.03, 6, 6), new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true }))
-            helper.position.copy(step.position)
-            this.container.add(helper)
+            if(this.helpers)
+            {
+                const helper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.03, 6, 6), new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true }))
+                helper.position.copy(step.position)
+                this.container.add(helper)
+            }
         }
 
         /**
@@ -156,9 +163,12 @@ export default class Roots
                     i++
 
                     // Helper
-                    const helper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.02, 6, 6), new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true }))
-                    helper.position.copy(point)
-                    this.container.add(helper)
+                    if(this.helpers)
+                    {
+                        const helper = new THREE.Mesh(new THREE.SphereBufferGeometry(0.02, 6, 6), new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true }))
+                        helper.position.copy(point)
+                        this.container.add(helper)
+                    }
                 }
             }
 
