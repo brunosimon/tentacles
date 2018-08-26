@@ -36,7 +36,7 @@ export default class Application
     setDebug()
     {
         this.debug = new dat.GUI()
-        this.debug.width = 360
+        // this.debug.width = 360
 
         // Options
         this.options = {}

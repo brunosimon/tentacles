@@ -1,7 +1,6 @@
 # Roots
 
 ## Todo
-- [ ] Randomness
 - [ ] Destroy / Recreate
 - [ ] Apparition animation
 - [ ] Blurp animation
