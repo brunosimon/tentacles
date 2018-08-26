@@ -1,8 +1,10 @@
 # Roots
 
 ## Todo
+- [ ] Randomness
 - [ ] Destroy / Recreate
-- [ ] Animation
+- [ ] Apparition animation
+- [ ] Blurp animation
 - [ ] Texture
 - [ ] Shapes avoidance
 

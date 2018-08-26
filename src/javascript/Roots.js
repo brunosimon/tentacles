@@ -20,6 +20,7 @@ export default class Roots
         this.rootsTubularSegments = _options.rootsTubularSegments
         this.rootsRadialSegments = _options.rootsRadialSegments
         this.rootsTension = _options.rootsTension
+        this.rootsRandomness = _options.rootsRandomness
         this.wireframe = _options.wireframe
 
         // Set up
@@ -152,17 +153,21 @@ export default class Roots
             for(const _circle of circles)
             {
                 // Each point
-                let i = 0
                 for(const _point of _circle.points)
                 {
                     const point = _point.clone()
+
+                    // Add angle
+                    const randomAngle = Math.random() * Math.PI * 2
+                    const randomStrength = Math.random() * this.rootsRandomness
+                    point.x += Math.cos(randomAngle) * randomStrength
+                    point.y += Math.sin(randomAngle) * randomStrength
+
                     point.applyAxisAngle(new THREE.Vector3(0, 0, 1), angle)
                     point.applyMatrix4(directionMatrix)
                     point.add(_step.position)
 
                     allPoints.push(point)
-
-                    i++
 
                     // Helper
                     if(this.helpers)
