@@ -228,6 +228,18 @@ export default class Application
         this.renderer.dispose()
         this.composer.dispose()
 
+        this.scene.traverse((object) =>
+        {
+            if(object.geometry)
+            {
+                object.geometry.dispose()
+            }
+            if(object.material)
+            {
+                object.material.dispose()
+            }
+        })
+
         this.debug.destroy()
     }
 }
