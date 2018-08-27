@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import ThreeOrbitControls from 'three-orbit-controls'
-import { EffectComposer, RenderPass, SMAAPass, SMAAAreaImageData, SMAASearchImageData } from 'postprocessing'
+import { EffectComposer, RenderPass, SMAAPass } from 'postprocessing'
 import * as dat from 'dat.gui'
 
 import Sizes from './Sizes.js'
@@ -24,10 +24,27 @@ export default class Application
         this.time = new Time()
         this.sizes = new Sizes()
 
-        this.setDebug()
-        this.setEnvironment()
+        // Load resources
+        this.resources = {}
 
-        this.generate()
+        this.resources.searchImage = new Image()
+        this.resources.searchImage.addEventListener('load', () =>
+        {
+            this.resources.areaImage = new Image()
+            this.resources.areaImage.addEventListener('load', () =>
+            {
+                // Set debug
+                this.setDebug()
+
+                // Set environment
+                this.setEnvironment()
+
+                // Generate first roots
+                this.generate()
+            })
+            this.resources.areaImage.src = SMAAPass.areaImageDataURL
+        })
+        this.resources.searchImage.src = SMAAPass.searchImageDataURL
     }
 
     /**
@@ -146,8 +163,8 @@ export default class Application
         this.composer.addPass(this.passes.render)
         this.passes.list.push(this.passes.render)
 
-        this.passes.smaa = new SMAAPass(SMAASearchImageData, SMAAAreaImageData)
-        this.passes.smaa.enabled = window.devicePixelRatio <= 1
+        this.passes.smaa = new SMAAPass(this.resources.searchImage, this.resources.areaImage)
+        this.passes.smaa.enabled = true
         this.composer.addPass(this.passes.smaa)
         this.passes.list.push(this.passes.smaa)
 
