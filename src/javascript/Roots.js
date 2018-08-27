@@ -1,6 +1,6 @@
 import Root from './Root.js'
-import Animation from './Animation.js'
 import * as THREE from 'three'
+import { TimelineLite, TweenLite } from 'gsap'
 
 export default class Roots
 {
@@ -22,6 +22,8 @@ export default class Roots
         this.rootsRadialSegments = _options.rootsRadialSegments
         this.rootsTension = _options.rootsTension
         this.rootsRandomness = _options.rootsRandomness
+        this.animationDuration = _options.animationDuration
+        this.animationOffset = _options.animationOffset
         this.wireframe = _options.wireframe
 
         // Set up
@@ -46,7 +48,7 @@ export default class Roots
         }
 
         this.setItems()
-        // this.setAnimation()
+        this.setAnimation()
     }
 
     /**
@@ -218,7 +220,18 @@ export default class Roots
      */
     setAnimation()
     {
-        this.animation = new Animation()
+        this.timeline = new TimelineLite()
+
+        let shuffledItems = [...this.items]
+        shuffledItems.sort(() => 0.5 - Math.random())
+
+        let i = 0
+        for(const _item of shuffledItems)
+        {
+            this.timeline.add(TweenLite.fromTo(_item, this.animationDuration, { progress: 0 }, { progress: 1 }), i * this.animationOffset)
+
+            i++
+        }
     }
 
     /**

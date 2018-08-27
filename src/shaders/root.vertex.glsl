@@ -1,3 +1,5 @@
+precision mediump float;
+
 uniform float uRadius;
 uniform float uProgress;
 

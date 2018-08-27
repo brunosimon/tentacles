@@ -1,9 +1,11 @@
 # Roots
 
 ## Todo
-- [ ] Destroy / Recreate
-- [ ] Apparition animation
-- [ ] Blurp animation
+- [ ] Fix SMAA
+- [ ] Animation
+    - [ ] Apparition
+    - [ ] Texture
+    - [ ] Blurp
 - [ ] Texture
 - [ ] Shapes avoidance
 

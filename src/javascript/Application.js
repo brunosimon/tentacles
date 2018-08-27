@@ -56,6 +56,8 @@ export default class Application
         this.options.rootsRadialSegments = 6
         this.options.rootsTension = 0.4
         this.options.rootsRandomness = 0.25
+        this.options.animationDuration = 2
+        this.options.animationOffset = 0.5
         this.options.wireframe = false
 
         this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
@@ -73,6 +75,8 @@ export default class Application
         this.debug.add(this.options, 'rootsRadialSegments').min(2).max(20).step(1).name('roots radial segments')
         this.debug.add(this.options, 'rootsTension').min(0).max(1).step(0.01).name('roots tension')
         this.debug.add(this.options, 'rootsRandomness').min(0).max(1).step(0.01).name('roots randomness')
+        this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
+        this.debug.add(this.options, 'animationOffset').min(0.01).max(5).step(0.01).name('animation offset')
         this.debug.add(this.options, 'wireframe').name('wireframe')
 
         for(const _controller of this.debug.__controllers)
@@ -211,6 +215,8 @@ export default class Application
             rootsRadialSegments: this.options.rootsRadialSegments,
             rootsTension: this.options.rootsTension,
             rootsRandomness: this.options.rootsRandomness,
+            animationDuration: this.options.animationDuration,
+            animationOffset: this.options.animationOffset,
             wireframe: this.options.wireframe
         })
         this.scene.add(this.roots.container)
