@@ -46,7 +46,7 @@ export default class Roots
         }
 
         this.setItems()
-        this.setAnimation()
+        // this.setAnimation()
     }
 
     /**
