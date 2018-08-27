@@ -1,4 +1,5 @@
 import Root from './Root.js'
+import Animation from './Animation.js'
 import * as THREE from 'three'
 
 export default class Roots
@@ -45,6 +46,7 @@ export default class Roots
         }
 
         this.setItems()
+        this.setAnimation()
     }
 
     /**
@@ -209,6 +211,14 @@ export default class Roots
 
             this.items.push(item)
         }
+    }
+
+    /**
+     * Set animation
+     */
+    setAnimation()
+    {
+        this.animation = new Animation()
     }
 
     /**

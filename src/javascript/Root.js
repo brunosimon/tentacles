@@ -19,6 +19,7 @@ export default class Root
 
         // Set up
         this.container = new THREE.Object3D()
+        this.progressValue = 0.5
 
         // Get points
         this.curve = new THREE.CatmullRomCurve3(this.anchors, false, 'centripetal', 1)
@@ -33,6 +34,7 @@ export default class Root
             wireframe: this.wireframe,
             uniforms:
             {
+                uProgress: { type: 'f', value: 1 },
                 uRadius: { type: 'f', value: this.radius }
             },
             vertexShader: rootVertexShader,
@@ -40,5 +42,19 @@ export default class Root
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.container.add(this.mesh)
+    }
+
+    get progress()
+    {
+        return this.progressValue
+    }
+
+    set progress(_value)
+    {
+        this.progressValue = _value
+
+        this.material.uniforms.uProgress.value = this.progressValue
+
+        return this.progressValue
     }
 }
