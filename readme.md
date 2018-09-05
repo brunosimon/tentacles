@@ -1,14 +1,10 @@
 # Roots
 
 ## Todo
-- [ ] Fix SMAA
 - [ ] Animation
-    - [ ] Apparition
     - [ ] Texture
     - [ ] Blurp
 - [ ] Texture
-- [ ] Roots random length
-- [ ] Random based on seed
 - [ ] Shapes avoidance
 
 ## Setup
