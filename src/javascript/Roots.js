@@ -1,6 +1,7 @@
 import Root from './Root.js'
 import * as THREE from 'three'
 import { TimelineLite, TweenLite } from 'gsap'
+import seedrandom from 'seedrandom'
 
 export default class Roots
 {
@@ -22,11 +23,15 @@ export default class Roots
         this.rootsRadialSegments = _options.rootsRadialSegments
         this.rootsTension = _options.rootsTension
         this.rootsRandomness = _options.rootsRandomness
+        this.rootsMinLength = _options.rootsMinLength
+        this.rootsMaxLength = _options.rootsMaxLength
         this.animationDuration = _options.animationDuration
         this.animationOffset = _options.animationOffset
         this.wireframe = _options.wireframe
+        this.seed = _options.seed
 
         // Set up
+        this.random = seedrandom(this.seed)
         this.container = new THREE.Object3D()
 
         this.way = new THREE.Vector3()
@@ -62,7 +67,7 @@ export default class Roots
          * Define circles
          */
         const circles = []
-        circles.push({ radius: 0, permiter: 0, count: 1, points: [new THREE.Vector3()] }) // First in center
+        circles.push({ radius: 0, permiter: 0, count: 1, points: [new THREE.Vector3()] }) // First in center
 
         let count = this.rootsCount - 1
         let circlesCount = 0
@@ -162,8 +167,8 @@ export default class Roots
                     const point = _point.clone()
 
                     // Add angle
-                    const randomAngle = Math.random() * Math.PI * 2
-                    const randomStrength = Math.random() * this.rootsRandomness
+                    const randomAngle = this.random() * Math.PI * 2
+                    const randomStrength = this.random() * this.rootsRandomness
                     point.x += Math.cos(randomAngle) * randomStrength
                     point.y += Math.sin(randomAngle) * randomStrength
 
@@ -203,6 +208,7 @@ export default class Roots
             const item = new Root({
                 anchors: anchors,
                 radius: this.rootsRadius,
+                length: this.rootsMinLength + (this.rootsMaxLength - this.rootsMinLength) * this.random(),
                 tubularSegments: this.rootsTubularSegments,
                 radialSegments: this.rootsRadialSegments,
                 tension: this.rootsTension,
@@ -222,8 +228,8 @@ export default class Roots
     {
         this.timeline = new TimelineLite()
 
-        let shuffledItems = [...this.items]
-        shuffledItems.sort(() => 0.5 - Math.random())
+        const shuffledItems = [...this.items]
+        shuffledItems.sort(() => 0.5 - this.random())
 
         let i = 0
         for(const _item of shuffledItems)

@@ -12,6 +12,7 @@ export default class Root
         // Options
         this.anchors = _options.anchors
         this.radius = _options.radius
+        this.length = _options.length
         this.tubularSegments = _options.tubularSegments
         this.radialSegments = _options.radialSegments
         this.tension = _options.tension
@@ -51,8 +52,9 @@ export default class Root
 
     set progress(_value)
     {
-        this.progressValue = _value
+        const value = _value * this.length
 
+        this.progressValue = value
         this.material.uniforms.uProgress.value = this.progressValue
 
         return this.progressValue

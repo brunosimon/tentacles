@@ -35,6 +35,7 @@
     "parcel-bundler": "^1.9.7",
     "parcel-plugin-glsl": "^0.1.0",
     "postprocessing": "^4.9.0",
+    "seedrandom": "^2.4.4",
     "shx": "^0.3.2",
     "three": "^0.95.0",
     "three-orbit-controls": "^82.1.0"
