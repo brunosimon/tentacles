@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import ThreeOrbitControls from 'three-orbit-controls'
-import { EffectComposer, RenderPass, SMAAPass } from 'postprocessing'
+import { EffectComposer, RenderPass, BloomPass, SMAAPass } from 'postprocessing'
 import * as dat from 'dat.gui'
 
 import Sizes from './Sizes.js'
@@ -65,18 +65,18 @@ export default class Application
         this.options.destinationY = 2
         this.options.destinationZ = 0
         this.options.steps = 6
-        this.options.torsionAngle = Math.PI * 1
+        this.options.torsionAngle = Math.PI * 0.4
         this.options.rootsCount = 10
         this.options.rootsRadius = 0.15
         this.options.rootsSpaceBetween = 0.4
         this.options.rootsTubularSegments = 50
-        this.options.rootsRadialSegments = 6
+        this.options.rootsRadialSegments = 12
         this.options.rootsTension = 0.4
         this.options.rootsRandomness = 0.25
         this.options.rootsMinLength = 0.25
         this.options.rootsMaxLength = 1
         this.options.animationDuration = 2
-        this.options.animationOffset = 0.2
+        this.options.animationOffset = 0
         this.options.wireframe = false
         this.options.seed = 'gozu'
 
@@ -139,6 +139,12 @@ export default class Application
         // this.dummy = new THREE.Mesh(new THREE.TorusKnotBufferGeometry(1, 0.4, 120, 20), new THREE.MeshNormalMaterial())
         // this.scene.add(this.dummy)
 
+        // Floor
+        this.floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(10, 10, 1, 1), new THREE.MeshBasicMaterial({ color: 0x000000 }))
+        this.floor.position.y = - 1.9
+        this.floor.rotation.x = - Math.PI * 0.5
+        this.scene.add(this.floor)
+
         // Composer
         this.composer = new EffectComposer(this.renderer, { depthTexture: true })
 
@@ -168,6 +174,11 @@ export default class Application
         this.passes.render = new RenderPass(this.scene, this.camera)
         this.composer.addPass(this.passes.render)
         this.passes.list.push(this.passes.render)
+
+        this.passes.bloom = new BloomPass({ intensity: 2 })
+        this.passes.bloom.enabled = true
+        this.composer.addPass(this.passes.bloom)
+        this.passes.list.push(this.passes.bloom)
 
         this.passes.smaa = new SMAAPass(this.resources.searchImage, this.resources.areaImage)
         this.passes.smaa.enabled = true
@@ -240,6 +251,14 @@ export default class Application
             rootsRandomness: this.options.rootsRandomness,
             rootsMinLength: this.options.rootsMinLength,
             rootsMaxLength: this.options.rootsMaxLength,
+            rootsColors:
+            [
+                [255,106,106], // Red
+                [246,108,255], // Purple
+                [111,221,255], // Bleu
+                [168,208,72], // Green
+                [255,168,91] // Orange
+            ],
             animationDuration: this.options.animationDuration,
             animationOffset: this.options.animationOffset,
             wireframe: this.options.wireframe,

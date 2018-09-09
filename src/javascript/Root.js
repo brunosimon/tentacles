@@ -16,6 +16,7 @@ export default class Root
         this.tubularSegments = _options.tubularSegments
         this.radialSegments = _options.radialSegments
         this.tension = _options.tension
+        this.color = _options.color
         this.wireframe = _options.wireframe
 
         // Set up
@@ -29,14 +30,13 @@ export default class Root
 
         // Create tube
         this.geometry = new THREE.TubeGeometry(this.curve, this.tubularSegments, this.radius, this.radialSegments, false)
-        // this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
-        // this.material = new THREE.MeshNormalMaterial()
         this.material = new THREE.ShaderMaterial({
             wireframe: this.wireframe,
             uniforms:
             {
                 uProgress: { type: 'f', value: 1 },
-                uRadius: { type: 'f', value: this.radius }
+                uRadius: { type: 'f', value: this.radius },
+                uColor: { type: 'v3', value: new THREE.Vector3(this.color[0] / 255, this.color[1] / 255, this.color[2] / 255) }
             },
             vertexShader: rootVertexShader,
             fragmentShader: rootFragmentShader

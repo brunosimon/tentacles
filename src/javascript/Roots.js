@@ -25,6 +25,7 @@ export default class Roots
         this.rootsRandomness = _options.rootsRandomness
         this.rootsMinLength = _options.rootsMinLength
         this.rootsMaxLength = _options.rootsMaxLength
+        this.rootsColors = _options.rootsColors
         this.animationDuration = _options.animationDuration
         this.animationOffset = _options.animationOffset
         this.wireframe = _options.wireframe
@@ -196,6 +197,8 @@ export default class Roots
          */
         this.items = []
 
+        const colorStartIndex = Math.floor(this.random() * this.rootsColors.length)
+
         for(let i = 0; i < this.rootsCount; i++)
         {
             const anchors = []
@@ -205,6 +208,9 @@ export default class Roots
                 anchors.push(point)
             }
 
+            const colorIndex = (colorStartIndex + i) % this.rootsColors.length
+            const color = this.rootsColors[colorIndex]
+
             const item = new Root({
                 anchors: anchors,
                 radius: this.rootsRadius,
@@ -212,6 +218,8 @@ export default class Roots
                 tubularSegments: this.rootsTubularSegments,
                 radialSegments: this.rootsRadialSegments,
                 tension: this.rootsTension,
+                color: color,
+                // color: this.rootsColor,
                 wireframe: this.wireframe
             })
 
