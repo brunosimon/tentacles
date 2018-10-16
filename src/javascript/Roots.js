@@ -28,6 +28,12 @@ export default class Roots
         this.rootsColors = _options.rootsColors
         this.animationDuration = _options.animationDuration
         this.animationOffset = _options.animationOffset
+        this.blurpMinDuration = _options.blurpMinDuration
+        this.blurpMaxDuration = _options.blurpMaxDuration
+        this.blurpMinInterval = _options.blurpMinInterval
+        this.blurpMaxInterval = _options.blurpMaxInterval
+        this.blurpMinAmplitude = _options.blurpMinAmplitude
+        this.blurpMaxAmplitude = _options.blurpMaxAmplitude
         this.wireframe = _options.wireframe
         this.seed = _options.seed
 
@@ -239,10 +245,37 @@ export default class Roots
         const shuffledItems = [...this.items]
         shuffledItems.sort(() => 0.5 - this.random())
 
+        // Blurp
         let i = 0
         for(const _item of shuffledItems)
         {
             this.timeline.add(TweenLite.fromTo(_item, this.animationDuration, { progress: 0 }, { progress: 1 }), i * this.animationOffset)
+
+            const animateBlurp = () =>
+            {
+                _item.material.uniforms.uBlurpAmplitude.value = this.blurpMinAmplitude + this.random() * (this.blurpMaxAmplitude - this.blurpMinAmplitude)
+
+                const duration = this.blurpMinDuration + this.random() * (this.blurpMaxDuration - this.blurpMinDuration)
+                TweenLite.fromTo(
+                    _item.material.uniforms.uBlurpProgress,
+                    duration,
+                    {
+                        value: 0
+                    },
+                    {
+                        value: 1,
+                        onComplete: () =>
+                        {
+                            window.setTimeout(animateBlurp, this.blurpMinInterval + this.random() * (this.blurpMaxInterval - this.blurpMinInterval) * 1000)
+                        }
+                    }
+                )
+            }
+
+            window.setTimeout(() =>
+            {
+                animateBlurp()
+            }, this.blurpMinInterval + this.random() * (this.blurpMaxInterval - this.blurpMinInterval) * 1000)
 
             i++
         }

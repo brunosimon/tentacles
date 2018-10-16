@@ -77,6 +77,12 @@ export default class Application
         this.options.rootsMaxLength = 1
         this.options.animationDuration = 2
         this.options.animationOffset = 0
+        this.options.blurpMinDuration = 3
+        this.options.blurpMaxDuration = 15
+        this.options.blurpMinInterval = 0
+        this.options.blurpMaxInterval = 5
+        this.options.blurpMinAmplitude = 0.15
+        this.options.blurpMaxAmplitude = 0.8
         this.options.wireframe = false
         this.options.seed = 'gozu'
 
@@ -99,6 +105,12 @@ export default class Application
         this.debug.add(this.options, 'rootsMaxLength').min(0).max(1).step(0.01).name('roots max length')
         this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
         this.debug.add(this.options, 'animationOffset').min(0.01).max(5).step(0.01).name('animation offset')
+        this.debug.add(this.options, 'blurpMinDuration').min(0).max(20).step(0.1).name('blurp min duration')
+        this.debug.add(this.options, 'blurpMaxDuration').min(0).max(20).step(0.1).name('blurp max duration')
+        this.debug.add(this.options, 'blurpMinInterval').min(0).max(20).step(0.1).name('blurp min interval')
+        this.debug.add(this.options, 'blurpMaxInterval').min(0).max(20).step(0.1).name('blurp max interval')
+        this.debug.add(this.options, 'blurpMinAmplitude').min(0).max(1).step(0.01).name('blurp min amplitude')
+        this.debug.add(this.options, 'blurpMaxAmplitude').min(0).max(1).step(0.01).name('blurp max amplitude')
         this.debug.add(this.options, 'wireframe').name('wireframe')
         this.debug.add(this.options, 'seed').name('seed')
 
@@ -261,6 +273,12 @@ export default class Application
             ],
             animationDuration: this.options.animationDuration,
             animationOffset: this.options.animationOffset,
+            blurpMinDuration: this.options.blurpMinDuration,
+            blurpMaxDuration: this.options.blurpMaxDuration,
+            blurpMinInterval: this.options.blurpMinInterval,
+            blurpMaxInterval: this.options.blurpMaxInterval,
+            blurpMinAmplitude: this.options.blurpMinAmplitude,
+            blurpMaxAmplitude: this.options.blurpMaxAmplitude,
             wireframe: this.options.wireframe,
             seed: this.options.seed
         })

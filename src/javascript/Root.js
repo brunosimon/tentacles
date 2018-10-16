@@ -36,7 +36,10 @@ export default class Root
             {
                 uProgress: { type: 'f', value: 1 },
                 uRadius: { type: 'f', value: this.radius },
-                uColor: { type: 'v3', value: new THREE.Vector3(this.color[0] / 255, this.color[1] / 255, this.color[2] / 255) }
+                uColor: { type: 'v3', value: new THREE.Vector3(this.color[0] / 255, this.color[1] / 255, this.color[2] / 255) },
+                uBlurpProgress: { type: 'f', value: 0 },
+                uBlurpAmplitude: { type: 'f', value: 0.5 },
+                uBlurpStrength: { type: 'f', value: 1 }
             },
             vertexShader: rootVertexShader,
             fragmentShader: rootFragmentShader
