@@ -4,6 +4,7 @@
 - [ ] Animation
     - [ ] Texture
     - [ ] Blurp
+    - [ ] Balancing
 - [ ] Texture
 - [ ] Shapes avoidance
 
