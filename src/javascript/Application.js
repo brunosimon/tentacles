@@ -7,6 +7,8 @@ import Sizes from './Sizes.js'
 import Time from './Time.js'
 import Roots from './Roots.js'
 
+import textures from './Textures.js'
+
 const OrbitControls = ThreeOrbitControls(THREE)
 
 export default class Application
@@ -85,6 +87,7 @@ export default class Application
         this.options.blurpMaxAmplitude = 0.8
         this.options.wireframe = false
         this.options.seed = 'gozu'
+        this.options.texture = 'Grass_002'
 
         this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
         this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
@@ -157,6 +160,26 @@ export default class Application
         this.floor.rotation.x = - Math.PI * 0.5
         this.scene.add(this.floor)
 
+        // Lights
+        this.lights = {}
+        // this.lights.ambient = new THREE.AmbientLight(0x000000)
+        // this.scene.add(this.lights.ambient)
+
+        this.lights.light1 = new THREE.DirectionalLight(0xffffff, 2)
+        this.lights.light1.position.x = 1
+        this.lights.light1.position.y = 1
+        this.lights.light1.position.z = 1
+        this.scene.add(this.lights.light1)
+
+        this.lights.light2 = new THREE.DirectionalLight(0xffffff, 0.4)
+        this.lights.light2.position.z = - 1
+        this.scene.add(this.lights.light2)
+
+        this.lights.light3 = new THREE.DirectionalLight(0xffffff, 0.2)
+        this.lights.light3.position.x = - 1
+        this.lights.light3.position.y = - 0.5
+        this.scene.add(this.lights.light3)
+
         // Composer
         this.composer = new EffectComposer(this.renderer, { depthTexture: true })
 
@@ -187,7 +210,7 @@ export default class Application
         this.composer.addPass(this.passes.render)
         this.passes.list.push(this.passes.render)
 
-        this.passes.bloom = new BloomPass({ intensity: 2 })
+        this.passes.bloom = new BloomPass({ intensity: 1 })
         this.passes.bloom.enabled = true
         this.composer.addPass(this.passes.bloom)
         this.passes.list.push(this.passes.bloom)
@@ -247,42 +270,84 @@ export default class Application
             this.scene.remove(this.roots.container)
         }
 
-        // Roots
-        this.roots = new Roots({
-            helpers: false,
-            origin: new THREE.Vector3(this.options.originX, this.options.originY, this.options.originZ),
-            destination: new THREE.Vector3(this.options.destinationX, this.options.destinationY, this.options.destinationZ),
-            steps: this.options.steps,
-            torsionAngle: this.options.torsionAngle,
-            rootsCount: this.options.rootsCount,
-            rootsRadius: this.options.rootsRadius,
-            rootsSpaceBetween: this.options.rootsSpaceBetween,
-            rootsTubularSegments: this.options.rootsTubularSegments,
-            rootsRadialSegments: this.options.rootsRadialSegments,
-            rootsTension: this.options.rootsTension,
-            rootsRandomness: this.options.rootsRandomness,
-            rootsMinLength: this.options.rootsMinLength,
-            rootsMaxLength: this.options.rootsMaxLength,
-            rootsColors:
-            [
-                [255,106,106], // Red
-                [246,108,255], // Purple
-                [111,221,255], // Bleu
-                [168,208,72], // Green
-                [255,168,91] // Orange
-            ],
-            animationDuration: this.options.animationDuration,
-            animationOffset: this.options.animationOffset,
-            blurpMinDuration: this.options.blurpMinDuration,
-            blurpMaxDuration: this.options.blurpMaxDuration,
-            blurpMinInterval: this.options.blurpMinInterval,
-            blurpMaxInterval: this.options.blurpMaxInterval,
-            blurpMinAmplitude: this.options.blurpMinAmplitude,
-            blurpMaxAmplitude: this.options.blurpMaxAmplitude,
-            wireframe: this.options.wireframe,
-            seed: this.options.seed
+        // Load all needed textures
+        const imagesPromises = []
+        for(const _textureName in textures[this.options.texture])
+        {
+            const textureUrl = textures[this.options.texture][_textureName]
+            imagesPromises.push(this.loadImage(textureUrl, _textureName))
+        }
+        Promise
+            .all(imagesPromises)
+            .then((_textures) =>
+            {
+                const textures = {}
+                for(const _texture of _textures)
+                {
+                    const texture = new THREE.Texture(_texture.img)
+                    texture.needsUpdate = true
+                    texture.wrapS = THREE.RepeatWrapping
+                    texture.wrapT = THREE.RepeatWrapping
+                    textures[_texture.name] = texture
+                }
+                // Roots
+                this.roots = new Roots({
+                    helpers: false,
+                    origin: new THREE.Vector3(this.options.originX, this.options.originY, this.options.originZ),
+                    destination: new THREE.Vector3(this.options.destinationX, this.options.destinationY, this.options.destinationZ),
+                    steps: this.options.steps,
+                    torsionAngle: this.options.torsionAngle,
+                    rootsCount: this.options.rootsCount,
+                    rootsRadius: this.options.rootsRadius,
+                    rootsSpaceBetween: this.options.rootsSpaceBetween,
+                    rootsTubularSegments: this.options.rootsTubularSegments,
+                    rootsRadialSegments: this.options.rootsRadialSegments,
+                    rootsTension: this.options.rootsTension,
+                    rootsRandomness: this.options.rootsRandomness,
+                    rootsMinLength: this.options.rootsMinLength,
+                    rootsMaxLength: this.options.rootsMaxLength,
+                    rootsColors:
+                    [
+                        [255,106,106], // Red
+                        [246,108,255], // Purple
+                        [111,221,255], // Bleu
+                        [168,208,72], // Green
+                        [255,168,91] // Orange
+                    ],
+                    rootsTextures: textures,
+                    animationDuration: this.options.animationDuration,
+                    animationOffset: this.options.animationOffset,
+                    blurpMinDuration: this.options.blurpMinDuration,
+                    blurpMaxDuration: this.options.blurpMaxDuration,
+                    blurpMinInterval: this.options.blurpMinInterval,
+                    blurpMaxInterval: this.options.blurpMaxInterval,
+                    blurpMinAmplitude: this.options.blurpMinAmplitude,
+                    blurpMaxAmplitude: this.options.blurpMaxAmplitude,
+                    wireframe: this.options.wireframe,
+                    seed: this.options.seed
+                })
+                this.scene.add(this.roots.container)
+            })
+    }
+
+    /**
+     * LoadImage
+     */
+    loadImage(_url, _name)
+    {
+        return new Promise((_resolve, _reject) =>
+        {
+            const img = document.createElement('img')
+            img.addEventListener('load', () =>
+            {
+                _resolve({ img, name: _name })
+            })
+            img.addEventListener('error', () =>
+            {
+                _reject(new Error(`Failed to load ${_url}`))
+            })
+            img.src = _url
         })
-        this.scene.add(this.roots.container)
     }
 
     /**

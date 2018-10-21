@@ -26,6 +26,7 @@ export default class Roots
         this.rootsMinLength = _options.rootsMinLength
         this.rootsMaxLength = _options.rootsMaxLength
         this.rootsColors = _options.rootsColors
+        this.rootsTextures = _options.rootsTextures
         this.animationDuration = _options.animationDuration
         this.animationOffset = _options.animationOffset
         this.blurpMinDuration = _options.blurpMinDuration
@@ -225,6 +226,7 @@ export default class Roots
                 radialSegments: this.rootsRadialSegments,
                 tension: this.rootsTension,
                 color: color,
+                textures: this.rootsTextures,
                 // color: this.rootsColor,
                 wireframe: this.wireframe
             })
