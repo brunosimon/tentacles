@@ -82,7 +82,7 @@ export default class Application
         this.options.rootsTextureRepeatX = 2
         this.options.rootsTextureRepeatY = 7
         this.options.animationDuration = 2
-        this.options.animationOffset = 0
+        this.options.animationOffset = 0.15
         this.options.blurpMinDuration = 3
         this.options.blurpMaxDuration = 15
         this.options.blurpMinInterval = 0
@@ -114,7 +114,7 @@ export default class Application
         this.debug.add(this.options, 'rootsTextureRepeatX').min(1).max(40).step(0.01).name('roots texture repeat x')
         this.debug.add(this.options, 'rootsTextureRepeatY').min(1).max(40).step(0.01).name('roots texture repeat y')
         this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
-        this.debug.add(this.options, 'animationOffset').min(0.01).max(5).step(0.01).name('animation offset')
+        this.debug.add(this.options, 'animationOffset').min(0).max(5).step(0.01).name('animation offset')
         this.debug.add(this.options, 'blurpMinDuration').min(0).max(20).step(0.1).name('blurp min duration')
         this.debug.add(this.options, 'blurpMaxDuration').min(0).max(20).step(0.1).name('blurp max duration')
         this.debug.add(this.options, 'blurpMinInterval').min(0).max(20).step(0.1).name('blurp min interval')

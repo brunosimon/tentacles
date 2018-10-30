@@ -2,10 +2,10 @@
 
 ## Todo
 - [ ] Animation
-    - [ ] Texture
-    - [ ] Blurp
+    - [x] Texture
+    - [x] Blurp
     - [ ] Balancing
-- [ ] Texture
+- [x] Texture
 - [ ] Shapes avoidance
 
 ## Setup
