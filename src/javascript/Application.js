@@ -9,6 +9,8 @@ import Roots from './Roots.js'
 
 import textures from './Textures.js'
 
+const texturesKeys = Object.keys(textures)
+
 const OrbitControls = ThreeOrbitControls(THREE)
 
 export default class Application
@@ -89,7 +91,7 @@ export default class Application
         this.options.blurpMaxAmplitude = 0.8
         this.options.wireframe = false
         this.options.seed = 'gozu'
-        this.options.texture = 'Rock_024_SD'
+        this.options.rootsTexture = texturesKeys[0]
 
         // this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
         // this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
@@ -108,6 +110,7 @@ export default class Application
         this.debug.add(this.options, 'rootsRandomness').min(0).max(1).step(0.01).name('roots randomness')
         this.debug.add(this.options, 'rootsMinLength').min(0).max(1).step(0.01).name('roots min length')
         this.debug.add(this.options, 'rootsMaxLength').min(0).max(1).step(0.01).name('roots max length')
+        this.debug.add(this.options, 'rootsTexture', texturesKeys).name('roots texture')
         this.debug.add(this.options, 'rootsTextureRepeatX').min(1).max(40).step(0.01).name('roots texture repeat x')
         this.debug.add(this.options, 'rootsTextureRepeatY').min(1).max(40).step(0.01).name('roots texture repeat y')
         this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
@@ -276,9 +279,9 @@ export default class Application
 
         // Load all needed textures
         const imagesPromises = []
-        for(const _textureName in textures[this.options.texture])
+        for(const _textureName in textures[this.options.rootsTexture])
         {
-            const textureUrl = textures[this.options.texture][_textureName]
+            const textureUrl = textures[this.options.rootsTexture][_textureName]
             imagesPromises.push(this.loadImage(textureUrl, _textureName))
         }
         Promise

@@ -12,14 +12,6 @@ import Rock_024_SDRoughness from '../assets/textures/Rock_024_SD/Rock_024_roughn
 
 export default
 {
-    Grass_002:
-    {
-        ambientOcclusion: Grass_002AmbientOcclusion,
-        map: Grass_002Map,
-        height: Grass_002Height,
-        normal: Grass_002Normal,
-        emissive: Grass_002Emissive
-    },
     Rock_024_SD:
     {
         ambientOcclusion: Rock_024_SDAmbientOcclusion,
@@ -27,5 +19,13 @@ export default
         height: Rock_024_SDHeight,
         normal: Rock_024_SDNormal,
         roughness: Rock_024_SDRoughness
+    },
+    Grass_002:
+    {
+        ambientOcclusion: Grass_002AmbientOcclusion,
+        map: Grass_002Map,
+        height: Grass_002Height,
+        normal: Grass_002Normal,
+        emissive: Grass_002Emissive
     }
 }
