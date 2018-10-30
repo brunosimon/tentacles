@@ -61,10 +61,10 @@ export default class Application
         this.options = {}
 
         this.options.originX = 0
-        this.options.originY = - 2
+        this.options.originY = - 1.5
         this.options.originZ = 0
         this.options.destinationX = 0
-        this.options.destinationY = 2
+        this.options.destinationY = 2.5
         this.options.destinationZ = 0
         this.options.steps = 6
         this.options.torsionAngle = Math.PI * 0.4
@@ -87,14 +87,14 @@ export default class Application
         this.options.blurpMaxAmplitude = 0.8
         this.options.wireframe = false
         this.options.seed = 'gozu'
-        this.options.texture = 'Grass_002'
+        this.options.texture = 'Rock_024_SD'
 
-        this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
-        this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
-        this.debug.add(this.options, 'originZ').min(- 5).max(5).step(0.1).name('origin z')
-        this.debug.add(this.options, 'destinationX').min(- 5).max(5).step(0.1).name('destination x')
-        this.debug.add(this.options, 'destinationY').min(- 5).max(5).step(0.1).name('destination y')
-        this.debug.add(this.options, 'destinationZ').min(- 5).max(5).step(0.1).name('destination z')
+        // this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
+        // this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
+        // this.debug.add(this.options, 'originZ').min(- 5).max(5).step(0.1).name('origin z')
+        // this.debug.add(this.options, 'destinationX').min(- 5).max(5).step(0.1).name('destination x')
+        // this.debug.add(this.options, 'destinationY').min(- 5).max(5).step(0.1).name('destination y')
+        // this.debug.add(this.options, 'destinationZ').min(- 5).max(5).step(0.1).name('destination z')
         this.debug.add(this.options, 'steps').min(2).max(20).step(1).name('steps')
         this.debug.add(this.options, 'torsionAngle').min(- 10).max(10).step(0.01).name('torsion angle')
         this.debug.add(this.options, 'rootsCount').min(1).max(100).step(1).name('roots count')
@@ -143,7 +143,7 @@ export default class Application
 
         // Camera
         this.camera = new THREE.PerspectiveCamera(75, this.sizes.viewport.width / this.sizes.viewport.height, 0.1, 100)
-        this.camera.position.set(0, 1, 3)
+        this.camera.position.set(-1.5, -1, 1)
         this.camera.lookAt(new THREE.Vector3())
         this.scene.add(this.camera)
 
