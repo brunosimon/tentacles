@@ -77,6 +77,8 @@ export default class Application
         this.options.rootsRandomness = 0.25
         this.options.rootsMinLength = 0.25
         this.options.rootsMaxLength = 1
+        this.options.rootsTextureRepeatX = 2
+        this.options.rootsTextureRepeatY = 7
         this.options.animationDuration = 2
         this.options.animationOffset = 0
         this.options.blurpMinDuration = 3
@@ -106,6 +108,8 @@ export default class Application
         this.debug.add(this.options, 'rootsRandomness').min(0).max(1).step(0.01).name('roots randomness')
         this.debug.add(this.options, 'rootsMinLength').min(0).max(1).step(0.01).name('roots min length')
         this.debug.add(this.options, 'rootsMaxLength').min(0).max(1).step(0.01).name('roots max length')
+        this.debug.add(this.options, 'rootsTextureRepeatX').min(1).max(40).step(0.01).name('roots texture repeat x')
+        this.debug.add(this.options, 'rootsTextureRepeatY').min(1).max(40).step(0.01).name('roots texture repeat y')
         this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
         this.debug.add(this.options, 'animationOffset').min(0.01).max(5).step(0.01).name('animation offset')
         this.debug.add(this.options, 'blurpMinDuration').min(0).max(20).step(0.1).name('blurp min duration')
@@ -315,6 +319,8 @@ export default class Application
                         [255,168,91] // Orange
                     ],
                     rootsTextures: textures,
+                    rootsTextureRepeatX: this.options.rootsTextureRepeatX,
+                    rootsTextureRepeatY: this.options.rootsTextureRepeatY,
                     animationDuration: this.options.animationDuration,
                     animationOffset: this.options.animationOffset,
                     blurpMinDuration: this.options.blurpMinDuration,

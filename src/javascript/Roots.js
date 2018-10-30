@@ -27,6 +27,8 @@ export default class Roots
         this.rootsMaxLength = _options.rootsMaxLength
         this.rootsColors = _options.rootsColors
         this.rootsTextures = _options.rootsTextures
+        this.rootsTextureRepeatX = _options.rootsTextureRepeatX
+        this.rootsTextureRepeatY = _options.rootsTextureRepeatY
         this.animationDuration = _options.animationDuration
         this.animationOffset = _options.animationOffset
         this.blurpMinDuration = _options.blurpMinDuration
@@ -227,6 +229,8 @@ export default class Roots
                 tension: this.rootsTension,
                 color: color,
                 textures: this.rootsTextures,
+                textureRepeatX: this.rootsTextureRepeatX,
+                textureRepeatY: this.rootsTextureRepeatY,
                 // color: this.rootsColor,
                 wireframe: this.wireframe
             })

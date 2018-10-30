@@ -16,6 +16,8 @@ export default class Root
         this.tension = _options.tension
         this.color = _options.color
         this.textures = _options.textures
+        this.textureRepeatX = _options.textureRepeatX
+        this.textureRepeatY = _options.textureRepeatY
         this.wireframe = _options.wireframe
 
         // Set up
@@ -57,7 +59,8 @@ export default class Root
                 uColor: { type: 'v3', value: new THREE.Vector3(this.color[0] / 255, this.color[1] / 255, this.color[2] / 255) },
                 uBlurpProgress: { type: 'f', value: 0 },
                 uBlurpAmplitude: { type: 'f', value: 0.5 },
-                uBlurpStrength: { type: 'f', value: 1 }
+                uBlurpStrength: { type: 'f', value: 1 },
+                uTextureRepeat: { type: 'f', value: new THREE.Vector2(this.textureRepeatX, this.textureRepeatY) }
             }
         ])
 
@@ -86,6 +89,8 @@ export default class Root
             uniform float uBlurpProgress;
             uniform float uBlurpAmplitude;
             uniform float uBlurpStrength;
+
+            uniform vec2 uTextureRepeat;
 
             float toSin(float _value)
             {
@@ -138,8 +143,8 @@ export default class Root
 
                 // UV
                 vUv.x -= uProgress;
-                vUv.x *= 20.0 + uProgress;
-                vUv.y *= 2.0;
+                vUv.x *= uTextureRepeat.y + uProgress;
+                vUv.y *= uTextureRepeat.x;
 
                 // Blurp shape
                 float blurpProgress = uBlurpProgress * (1.0 + uBlurpAmplitude) - (uBlurpAmplitude / 2.0);
