@@ -7,7 +7,7 @@
     "predev": "npm run clean && npm run copy",
     "dev": "parcel src/index.html -p 1234 --open",
     "prebuild": "npm run clean && npm run copy",
-    "build": "parcel build src/index.html --out-dir ./dist/assets --public-url /assets --detailed-report",
+    "build": "parcel build src/index.html --out-dir ./dist/assets --public-url ./assets --detailed-report",
     "postbuild": "mv dist/assets/index.html dist/index.html",
     "clean": "shx rm -rf dist",
     "copy": "shx cp -r static/ dist/",
