@@ -251,6 +251,7 @@ export default class Root
         `
 
         this.material = new THREE.ShaderMaterial({
+            wireframe: this.wireframe,
             vertexShader: vertexShader,
             fragmentShader: fragmentShader,
             // attributes: {},
