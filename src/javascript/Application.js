@@ -93,19 +93,10 @@ export default class Application
         this.options.seed = 'gozu'
         this.options.rootsTexture = texturesKeys[0]
 
-        // this.debug.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
-        // this.debug.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
-        // this.debug.add(this.options, 'originZ').min(- 5).max(5).step(0.1).name('origin z')
-        // this.debug.add(this.options, 'destinationX').min(- 5).max(5).step(0.1).name('destination x')
-        // this.debug.add(this.options, 'destinationY').min(- 5).max(5).step(0.1).name('destination y')
-        // this.debug.add(this.options, 'destinationZ').min(- 5).max(5).step(0.1).name('destination z')
-        this.debug.add(this.options, 'steps').min(2).max(20).step(1).name('steps')
         this.debug.add(this.options, 'torsionAngle').min(- 10).max(10).step(0.01).name('torsion angle')
         this.debug.add(this.options, 'rootsCount').min(1).max(100).step(1).name('roots count')
         this.debug.add(this.options, 'rootsRadius').min(0.01).max(1).step(0.01).name('roots radius')
         this.debug.add(this.options, 'rootsSpaceBetween').min(0.01).max(1).step(0.01).name('roots space between')
-        this.debug.add(this.options, 'rootsTubularSegments').min(2).max(200).step(1).name('roots tubular segments')
-        this.debug.add(this.options, 'rootsRadialSegments').min(2).max(20).step(1).name('roots radial segments')
         this.debug.add(this.options, 'rootsTension').min(0).max(1).step(0.01).name('roots tension')
         this.debug.add(this.options, 'rootsRandomness').min(0).max(1).step(0.01).name('roots randomness')
         this.debug.add(this.options, 'rootsMinLength').min(0).max(1).step(0.01).name('roots min length')
@@ -113,16 +104,28 @@ export default class Application
         this.debug.add(this.options, 'rootsTexture', texturesKeys).name('roots texture')
         this.debug.add(this.options, 'rootsTextureRepeatX').min(1).max(40).step(0.01).name('roots texture repeat x')
         this.debug.add(this.options, 'rootsTextureRepeatY').min(1).max(40).step(0.01).name('roots texture repeat y')
-        this.debug.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
-        this.debug.add(this.options, 'animationOffset').min(0).max(5).step(0.01).name('animation offset')
-        this.debug.add(this.options, 'blurpMinDuration').min(0).max(20).step(0.1).name('blurp min duration')
-        this.debug.add(this.options, 'blurpMaxDuration').min(0).max(20).step(0.1).name('blurp max duration')
-        this.debug.add(this.options, 'blurpMinInterval').min(0).max(20).step(0.1).name('blurp min interval')
-        this.debug.add(this.options, 'blurpMaxInterval').min(0).max(20).step(0.1).name('blurp max interval')
-        this.debug.add(this.options, 'blurpMinAmplitude').min(0).max(1).step(0.01).name('blurp min amplitude')
-        this.debug.add(this.options, 'blurpMaxAmplitude').min(0).max(1).step(0.01).name('blurp max amplitude')
         this.debug.add(this.options, 'wireframe').name('wireframe')
-        this.debug.add(this.options, 'seed').name('seed')
+        this.debug.add(this, 'generate').name('reset()')
+
+        const folder = this.debug.addFolder('Advanced')
+        folder.add(this.options, 'originX').min(- 5).max(5).step(0.1).name('origin x')
+        folder.add(this.options, 'originY').min(- 5).max(5).step(0.1).name('origin y')
+        folder.add(this.options, 'originZ').min(- 5).max(5).step(0.1).name('origin z')
+        folder.add(this.options, 'destinationX').min(- 5).max(5).step(0.1).name('destination x')
+        folder.add(this.options, 'destinationY').min(- 5).max(5).step(0.1).name('destination y')
+        folder.add(this.options, 'destinationZ').min(- 5).max(5).step(0.1).name('destination z')
+        folder.add(this.options, 'steps').min(2).max(20).step(1).name('steps')
+        folder.add(this.options, 'rootsTubularSegments').min(2).max(200).step(1).name('roots tubular segments')
+        folder.add(this.options, 'rootsRadialSegments').min(2).max(20).step(1).name('roots radial segments')
+        folder.add(this.options, 'animationDuration').min(0.01).max(10).step(0.01).name('animation duration')
+        folder.add(this.options, 'animationOffset').min(0).max(5).step(0.01).name('animation offset')
+        folder.add(this.options, 'blurpMinDuration').min(0).max(20).step(0.1).name('blurp min duration')
+        folder.add(this.options, 'blurpMaxDuration').min(0).max(20).step(0.1).name('blurp max duration')
+        folder.add(this.options, 'blurpMinInterval').min(0).max(20).step(0.1).name('blurp min interval')
+        folder.add(this.options, 'blurpMaxInterval').min(0).max(20).step(0.1).name('blurp max interval')
+        folder.add(this.options, 'blurpMinAmplitude').min(0).max(1).step(0.01).name('blurp min amplitude')
+        folder.add(this.options, 'blurpMaxAmplitude').min(0).max(1).step(0.01).name('blurp max amplitude')
+        folder.add(this.options, 'seed').name('seed')
 
         for(const _controller of this.debug.__controllers)
         {
@@ -131,8 +134,6 @@ export default class Application
                 this.generate()
             })
         }
-
-        this.debug.add(this, 'generate').name('reset()')
     }
 
     /**
