@@ -27,5 +27,9 @@ export default
         height: Grass_002Height,
         normal: Grass_002Normal,
         emissive: Grass_002Emissive
+    },
+    Color:
+    {
+        colors: true
     }
 }
