@@ -127,7 +127,7 @@ export default class Application
         folder.add(this.options, 'blurpMaxAmplitude').min(0).max(1).step(0.01).name('blurp max amplitude')
         folder.add(this.options, 'seed').name('seed')
 
-        for(const _controller of this.debug.__controllers)
+        for(const _controller of [...this.debug.__controllers, ...folder.__controllers])
         {
             _controller.onFinishChange(() =>
             {
