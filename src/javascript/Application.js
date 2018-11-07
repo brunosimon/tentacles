@@ -91,7 +91,7 @@ export default class Application
         this.options.blurpMaxAmplitude = 0.8
         this.options.wireframe = false
         this.options.seed = 'gozu'
-        this.options.rootsTexture = texturesKeys[0]
+        this.options.rootsTexture = texturesKeys[Math.floor(Math.random() * texturesKeys.length)]
 
         this.debug.add(this.options, 'torsionAngle').min(- 10).max(10).step(0.01).name('torsion angle')
         this.debug.add(this.options, 'rootsCount').min(1).max(100).step(1).name('roots count')
@@ -279,7 +279,6 @@ export default class Application
         }
 
         const texture = textures[this.options.rootsTexture]
-        console.log(texture)
 
         // Load all needed textures
         const imagesPromises = []
@@ -294,6 +293,7 @@ export default class Application
             {
                 const textures = {}
                 textures.type = texture.type
+                textures.emissiveColor = texture.emissiveColor
                 for(const _texture of _textures)
                 {
                     const texture = new THREE.Texture(_texture.img)

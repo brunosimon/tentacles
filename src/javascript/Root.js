@@ -49,11 +49,12 @@ export default class Root
             THREE.UniformsLib.displacementmap,
             THREE.UniformsLib.roughnessmap,
             THREE.UniformsLib.metalnessmap,
+            THREE.UniformsLib.specularmap,
             THREE.UniformsLib.fog,
             THREE.UniformsLib.lights,
             {
                 // Standard material uniforms
-                emissive: { value: new THREE.Color(0x000000) },
+                emissive: { value: new THREE.Color(this.textures.emissiveColor) },
                 roughness: { value: 0.5 },
                 metalness: { value: 0 },
                 envMapIntensity: { value: 1 }, // temporary
@@ -72,8 +73,10 @@ export default class Root
         uniforms.map.value = this.textures.map
         uniforms.normalMap.value = this.textures.normal
         uniforms.roughnessMap.value = this.textures.roughness
+        uniforms.specularMap.value = this.textures.specular
         uniforms.emissiveMap.value = this.textures.emissive
         uniforms.aoMap.value = this.textures.ambientOcclusion
+        uniforms.metalnessMap.value = this.textures.metalness
 
         this.material = new THREE.ShaderMaterial({
             wireframe: this.wireframe,
@@ -90,11 +93,16 @@ export default class Root
             },
             defines:
             {
-                USE_MAP: '',
-                USE_NORMALMAP: '',
-                USE_ROUGHNESSMAP: '',
                 STANDARD: '',
-                USE_LIGHTMAP: ''
+
+                USE_MAP: '',
+                USE_BUMPMAP: '',
+                USE_NORMALMAP: '',
+                USE_SPECULARMAP: '',
+                USE_EMISSIVEMAP: '',
+                USE_ROUGHNESSMAP: '',
+                USE_METALNESSMAP: '',
+                USE_AOMAP: ''
             },
             lights: true
         })
