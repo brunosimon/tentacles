@@ -102,8 +102,8 @@ export default class Application
         this.debug.add(this.options, 'rootsMinLength').min(0).max(1).step(0.01).name('roots min length')
         this.debug.add(this.options, 'rootsMaxLength').min(0).max(1).step(0.01).name('roots max length')
         this.debug.add(this.options, 'rootsTexture', texturesKeys).name('roots texture')
-        this.debug.add(this.options, 'rootsTextureRepeatX').min(1).max(40).step(0.01).name('roots texture repeat x')
-        this.debug.add(this.options, 'rootsTextureRepeatY').min(1).max(40).step(0.01).name('roots texture repeat y')
+        this.debug.add(this.options, 'rootsTextureRepeatX').min(0).max(10).step(0.01).name('roots texture repeat x')
+        this.debug.add(this.options, 'rootsTextureRepeatY').min(0).max(10).step(0.01).name('roots texture repeat y')
         this.debug.add(this.options, 'wireframe').name('wireframe')
         this.debug.add(this, 'generate').name('reset()')
 
