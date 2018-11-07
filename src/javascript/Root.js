@@ -77,8 +77,8 @@ export default class Root
 
         this.material = new THREE.ShaderMaterial({
             wireframe: this.wireframe,
-            vertexShader: rootColorVertex,
-            fragmentShader: rootColorFragment,
+            vertexShader: this.textures.type === 'colors' ? rootColorVertex : rootTextureVertex,
+            fragmentShader: this.textures.type === 'colors' ? rootColorFragment : rootTextureFragment,
             // attributes: {},
             uniforms: uniforms,
             extensions:

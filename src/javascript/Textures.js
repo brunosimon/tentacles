@@ -14,22 +14,30 @@ export default
 {
     Rock_024_SD:
     {
-        ambientOcclusion: Rock_024_SDAmbientOcclusion,
-        map: Rock_024_SDMap,
-        height: Rock_024_SDHeight,
-        normal: Rock_024_SDNormal,
-        roughness: Rock_024_SDRoughness
-    },
-    Grass_002:
-    {
-        ambientOcclusion: Grass_002AmbientOcclusion,
-        map: Grass_002Map,
-        height: Grass_002Height,
-        normal: Grass_002Normal,
-        emissive: Grass_002Emissive
+        type: 'textures',
+        sources:
+        {
+            ambientOcclusion: Rock_024_SDAmbientOcclusion,
+            map: Rock_024_SDMap,
+            height: Rock_024_SDHeight,
+            normal: Rock_024_SDNormal,
+            roughness: Rock_024_SDRoughness
+        }
     },
     Color:
     {
-        colors: true
+        type: 'colors'
+    },
+    Grass_002:
+    {
+        type: 'textures',
+        sources:
+        {
+            ambientOcclusion: Grass_002AmbientOcclusion,
+            map: Grass_002Map,
+            height: Grass_002Height,
+            normal: Grass_002Normal,
+            emissive: Grass_002Emissive
+        }
     }
 }

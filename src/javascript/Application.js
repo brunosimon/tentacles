@@ -278,11 +278,14 @@ export default class Application
             this.scene.remove(this.roots.container)
         }
 
+        const texture = textures[this.options.rootsTexture]
+
         // Load all needed textures
         const imagesPromises = []
-        for(const _textureName in textures[this.options.rootsTexture])
+        for(const _textureName in texture.sources)
         {
-            const textureUrl = textures[this.options.rootsTexture][_textureName]
+            const textureUrl = texture.sources[_textureName]
+            console.log(textureUrl)
             imagesPromises.push(this.loadImage(textureUrl, _textureName))
         }
         Promise
@@ -290,6 +293,7 @@ export default class Application
             .then((_textures) =>
             {
                 const textures = {}
+                textures.type = texture.type
                 for(const _texture of _textures)
                 {
                     const texture = new THREE.Texture(_texture.img)
