@@ -73,7 +73,7 @@ export default `
 
         // UV
         vUv.x -= uProgress;
-        vUv.x *= uTextureRepeat.y + uProgress;
+        vUv.x *= uTextureRepeat.y * (1.0 + abs(coneDisplacement * M_PI * 2.0));
         vUv.y *= uTextureRepeat.x;
 
         // Blurp shape

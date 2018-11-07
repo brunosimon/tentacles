@@ -79,8 +79,8 @@ export default class Application
         this.options.rootsRandomness = 0.25
         this.options.rootsMinLength = 0.25
         this.options.rootsMaxLength = 1
-        this.options.rootsTextureRepeatX = 2
-        this.options.rootsTextureRepeatY = 7
+        this.options.rootsTextureRepeatX = 1
+        this.options.rootsTextureRepeatY = 1
         this.options.animationDuration = 2
         this.options.animationOffset = 0.15
         this.options.blurpMinDuration = 3
@@ -279,13 +279,13 @@ export default class Application
         }
 
         const texture = textures[this.options.rootsTexture]
+        console.log(texture)
 
         // Load all needed textures
         const imagesPromises = []
         for(const _textureName in texture.sources)
         {
             const textureUrl = texture.sources[_textureName]
-            console.log(textureUrl)
             imagesPromises.push(this.loadImage(textureUrl, _textureName))
         }
         Promise
@@ -327,8 +327,8 @@ export default class Application
                         [255,168,91] // Orange
                     ],
                     rootsTextures: textures,
-                    rootsTextureRepeatX: this.options.rootsTextureRepeatX,
-                    rootsTextureRepeatY: this.options.rootsTextureRepeatY,
+                    rootsTextureRepeatX: this.options.rootsTextureRepeatX * (texture.repeat ? texture.repeat.x : 1),
+                    rootsTextureRepeatY: this.options.rootsTextureRepeatY * (texture.repeat ? texture.repeat.y : 1),
                     animationDuration: this.options.animationDuration,
                     animationOffset: this.options.animationOffset,
                     blurpMinDuration: this.options.blurpMinDuration,

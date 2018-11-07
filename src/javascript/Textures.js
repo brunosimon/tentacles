@@ -15,6 +15,11 @@ export default
     Rock_024_SD:
     {
         type: 'textures',
+        repeat:
+        {
+            x: 2,
+            y: 12
+        },
         sources:
         {
             ambientOcclusion: Rock_024_SDAmbientOcclusion,
@@ -24,13 +29,14 @@ export default
             roughness: Rock_024_SDRoughness
         }
     },
-    Color:
-    {
-        type: 'colors'
-    },
     Grass_002:
     {
         type: 'textures',
+        repeat:
+        {
+            x: 3,
+            y: 36
+        },
         sources:
         {
             ambientOcclusion: Grass_002AmbientOcclusion,
@@ -39,5 +45,9 @@ export default
             normal: Grass_002Normal,
             emissive: Grass_002Emissive
         }
+    },
+    Color:
+    {
+        type: 'colors'
     }
 }
